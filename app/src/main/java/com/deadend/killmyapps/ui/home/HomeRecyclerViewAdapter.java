@@ -13,19 +13,23 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.deadend.killmyapps.R;
+import com.deadend.killmyapps.model.AppInfo;
 
 import java.util.List;
 
 public class HomeRecyclerViewAdapter extends RecyclerView.Adapter<HomeRecyclerViewAdapter.ViewHolder> {
 
     Context context;
-    List<ApplicationInfo> appList;
+    List<AppInfo> appList;
 
-    public HomeRecyclerViewAdapter(Context context, List<ApplicationInfo> appList) {
+    public HomeRecyclerViewAdapter(Context context, List<AppInfo> appList) {
         this.context = context;
         this.appList = appList;
     }
 
+    public void refresh(){
+        notifyDataSetChanged();
+    }
     @NonNull
     @Override
     public HomeRecyclerViewAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -36,9 +40,9 @@ public class HomeRecyclerViewAdapter extends RecyclerView.Adapter<HomeRecyclerVi
 
     @Override
     public void onBindViewHolder(@NonNull HomeRecyclerViewAdapter.ViewHolder holder, int position) {
-        holder.icon.setImageDrawable(appList.get(position).loadIcon(context.getPackageManager()));
-        holder.name.setText(appList.get(position).loadLabel(context.getPackageManager()));
-        holder.pkgName.setText(appList.get(position).packageName);
+        holder.name.setText(appList.get(position).getName());
+        holder.pkgName.setText(appList.get(position).getPkgName());
+        holder.icon.setImageDrawable(appList.get(position).getIcon());
         holder.itemView.startAnimation(AnimationUtils.loadAnimation(context, R.anim.scale_in));
     }
 
