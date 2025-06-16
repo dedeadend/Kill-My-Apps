@@ -10,10 +10,8 @@ android {
         applicationId = "com.deadend.killmyapps"
         minSdk = 23
         targetSdk = 35
-        versionCode = 1
-        versionName = "1.0"
-
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        versionCode = 100
+        versionName = "1.0.0"
     }
 
     buildTypes {
@@ -43,7 +41,5 @@ dependencies {
     implementation(libs.lifecycle.viewmodel.ktx)
     implementation(libs.navigation.fragment)
     implementation(libs.navigation.ui)
-    testImplementation(libs.junit)
-    androidTestImplementation(libs.ext.junit)
-    androidTestImplementation(libs.espresso.core)
+    implementation(libs.swiperefreshlayout)
 }
