@@ -5,6 +5,8 @@ import android.content.pm.ApplicationInfo;
 import android.content.pm.ResolveInfo;
 import android.graphics.drawable.Drawable;
 
+import com.deadend.killmyapps.App;
+
 import java.util.ArrayList;
 import java.util.List;
 

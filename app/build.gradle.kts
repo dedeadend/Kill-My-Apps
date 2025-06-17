@@ -1,15 +1,16 @@
 plugins {
     alias(libs.plugins.android.application)
+    id("com.google.devtools.ksp")
 }
 
 android {
     namespace = "com.deadend.killmyapps"
-    compileSdk = 35
+    compileSdk = 36
 
     defaultConfig {
         applicationId = "com.deadend.killmyapps"
         minSdk = 23
-        targetSdk = 35
+        targetSdk = 36
         versionCode = 100
         versionName = "1.0.0"
     }
@@ -33,7 +34,6 @@ android {
 }
 
 dependencies {
-
     implementation(libs.appcompat)
     implementation(libs.material)
     implementation(libs.constraintlayout)
@@ -42,4 +42,7 @@ dependencies {
     implementation(libs.navigation.fragment)
     implementation(libs.navigation.ui)
     implementation(libs.swiperefreshlayout)
+    implementation("androidx.room:room-runtime:2.4.2")
+    annotationProcessor("androidx.room:room-compiler:2.4.2")
+    ksp("androidx.room:room-compiler:2.4.2")
 }
