@@ -6,6 +6,7 @@ import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -35,7 +36,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-public class HomeFragment extends Fragment {
+public class HomeFragment extends Fragment implements HomeRecyclerViewAdapter.onPauseIconClickListener {
 
     private FragmentHomeBinding binding;
     HomeViewModel homeViewModel;
@@ -61,7 +62,14 @@ public class HomeFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
+        binding.refreshLayout.setRefreshing(true);
         homeViewModel.refreshList();
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                binding.refreshLayout.setRefreshing(false);
+            }
+        }, 1000);
     }
 
     @Override
@@ -74,8 +82,15 @@ public class HomeFragment extends Fragment {
         homeViewModel.getAppsList().observe(getViewLifecycleOwner(), new Observer<List<AppInfo>>() {
             @Override
             public void onChanged(List<AppInfo> appInfos) {
-                adapter = new HomeRecyclerViewAdapter(getContext(), homeViewModel.getAppsList().getValue());
-                binding.homeRecyclerView.setAdapter(adapter);
+                setAdapter();
+                if (appInfos.size() == 0) {
+                    binding.killAllBtn.setVisibility(View.GONE);
+                    binding.search.setVisibility(View.GONE);
+                }
+                else {
+                    binding.killAllBtn.setVisibility(View.VISIBLE);
+                    binding.search.setVisibility(View.VISIBLE);
+                }
             }
         });
     }
@@ -88,6 +103,21 @@ public class HomeFragment extends Fragment {
                 binding.refreshLayout.setRefreshing(false);
             }
         });
+        binding.killAllBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getContext(), homeViewModel.clearList() + " Apps Killed successfully!", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
+    private void setAdapter(){
+        adapter = new HomeRecyclerViewAdapter(homeViewModel.getAppsList().getValue(), this);
+        binding.homeRecyclerView.setAdapter(adapter);
+    }
+
+    @Override
+    public void onPauseIconClick(int position) {
+        Toast.makeText(getContext(), String.valueOf(position), Toast.LENGTH_SHORT).show();
+    }
 }

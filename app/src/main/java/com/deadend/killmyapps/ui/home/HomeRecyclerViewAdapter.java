@@ -1,7 +1,6 @@
 package com.deadend.killmyapps.ui.home;
 
-import android.content.Context;
-import android.content.pm.ApplicationInfo;
+import android.annotation.SuppressLint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,38 +11,40 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.deadend.killmyapps.App;
 import com.deadend.killmyapps.R;
 import com.deadend.killmyapps.model.AppInfo;
 
 import java.util.List;
 
-public class HomeRecyclerViewAdapter extends RecyclerView.Adapter<HomeRecyclerViewAdapter.ViewHolder> {
+public class HomeRecyclerViewAdapter extends RecyclerView.Adapter<HomeRecyclerViewAdapter.ViewHolder> implements View.OnClickListener {
 
-    Context context;
     List<AppInfo> appList;
+    onPauseIconClickListener listener;
 
-    public HomeRecyclerViewAdapter(Context context, List<AppInfo> appList) {
-        this.context = context;
+    public HomeRecyclerViewAdapter(List<AppInfo> appList, onPauseIconClickListener listener) {
         this.appList = appList;
+        this.listener = listener;
     }
 
-    public void refresh(){
-        notifyDataSetChanged();
-    }
     @NonNull
     @Override
     public HomeRecyclerViewAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(com.deadend.killmyapps.R.layout.recycler_home, parent, false);
+                .inflate(com.deadend.killmyapps.R.layout.recycler_app, parent, false);
         return new ViewHolder(view);
     }
 
+    @SuppressLint("UseCompatLoadingForDrawables")
     @Override
     public void onBindViewHolder(@NonNull HomeRecyclerViewAdapter.ViewHolder holder, int position) {
         holder.name.setText(appList.get(position).getName());
         holder.pkgName.setText(appList.get(position).getPkgName());
         holder.icon.setImageDrawable(appList.get(position).getIcon());
-        holder.itemView.startAnimation(AnimationUtils.loadAnimation(context, R.anim.scale_in));
+        holder.itemView.startAnimation(AnimationUtils.loadAnimation(App.context, R.anim.scale_in));
+        holder.pause.setImageDrawable(App.context.getDrawable(R.drawable.ic_pause));
+        holder.pause.setTag(appList.get(position).getPkgName());
+        holder.pause.setOnClickListener(this);
     }
 
     @Override
@@ -51,6 +52,22 @@ public class HomeRecyclerViewAdapter extends RecyclerView.Adapter<HomeRecyclerVi
         return appList.size();
     }
 
+    @Override
+    public void onClick(View v) {
+        String pkgName = (String) v.getTag();
+        for (int i=0; i<appList.size(); i++){
+            if(appList.get(i).getPkgName().equals(pkgName)){
+                appList.remove(i);
+                notifyItemRemoved(i);
+                listener.onPauseIconClick(i);
+                break;
+            }
+        }
+    }
+
+    public interface onPauseIconClickListener{
+        void onPauseIconClick(int position);
+    }
     public static class ViewHolder extends RecyclerView.ViewHolder {
         ImageView icon, pause;
         TextView name, pkgName;

@@ -63,6 +63,7 @@ public class SettingsFragment extends Fragment {
                     binding.modeSettings.check(binding.launcherMode.getId());
                 else if (integer == 2)
                     binding.modeSettings.check(binding.systemMode.getId());
+                binding.hideSystemUi.setEnabled(integer == 2);
             }
         });
         settingsViewModel.getHideKillMyApps().observe(getViewLifecycleOwner(), binding.hideKillMyApps::setChecked);

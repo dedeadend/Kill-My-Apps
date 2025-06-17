@@ -12,6 +12,7 @@ import androidx.lifecycle.ViewModel;
 import com.deadend.killmyapps.App;
 import com.deadend.killmyapps.model.AppInfo;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class HomeViewModel extends ViewModel {
@@ -31,6 +32,12 @@ public class HomeViewModel extends ViewModel {
             getLauncherAppsList(App.context);
         else if (listMode == 2)
             getSystemAppsList(App.context);
+    }
+
+    public int clearList(){
+        int size = appsList.getValue().size();
+        appsList.setValue(new ArrayList<>());
+        return size;
     }
 
     private String getLauncherPkgName() {
