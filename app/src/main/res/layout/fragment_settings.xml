@@ -36,8 +36,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:id="@+id/theme_settings"
-                    android:layout_margin="8dp"
-                    android:checkedButton="@id/auto_theme">
+                    android:layout_margin="8dp">
                     <RadioButton
                         android:id="@+id/auto_theme"
                         android:layout_width="match_parent"
@@ -87,8 +86,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:id="@+id/mode_settings"
-                    android:layout_margin="8dp"
-                    android:checkedButton="@id/user_mode">
+                    android:layout_margin="8dp">
                     <RadioButton
                         android:id="@+id/user_mode"
                         android:layout_width="match_parent"
@@ -141,7 +139,6 @@
                     android:layout_marginHorizontal="8dp"
                     android:text="Hide 'Kill My Apps' app"
                     android:textStyle="bold"
-                    android:checked="true"
                     android:textSize="16sp"/>
                 <CheckBox
                     android:id="@+id/hide_default_launcher"
@@ -150,7 +147,6 @@
                     android:layout_marginHorizontal="8dp"
                     android:text="Hide default launcher app"
                     android:textStyle="bold"
-                    android:checked="true"
                     android:textSize="16sp"/>
                 <CheckBox
                     android:id="@+id/hide_system_ui"
@@ -158,7 +154,6 @@
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="8dp"
                     android:text="Hide 'System UI' app"
-                    android:checked="true"
                     android:enabled="false"
                     android:textStyle="bold"
                     android:textSize="16sp"/>

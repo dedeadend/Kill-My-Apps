@@ -1,8 +1,10 @@
 package com.deadend.killmyapps.model;
 
+import androidx.annotation.NonNull;
 import androidx.room.Entity;
 
-@Entity(tableName = "excludedPkg")
+@Entity(tableName = "excludedPkg", primaryKeys = {"name"})
 public class PKGName {
-    String name;
+    @NonNull
+    public String name;
 }
