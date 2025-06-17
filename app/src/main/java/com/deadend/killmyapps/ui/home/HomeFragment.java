@@ -56,8 +56,8 @@ public class HomeFragment extends Fragment {
         homeViewModel.getAppsList().observe(getViewLifecycleOwner(), new Observer<List<AppInfo>>() {
             @Override
             public void onChanged(List<AppInfo> appInfos) {
-                adapter.refresh();
-                Toast.makeText(getContext(), String.valueOf(homeViewModel.getAppsList().getValue().size()), Toast.LENGTH_SHORT).show();
+                adapter = new HomeRecyclerViewAdapter(getContext(), homeViewModel.getAppsList().getValue());
+                binding.homeRecyclerView.setAdapter(adapter);
             }
         });
 
@@ -69,8 +69,6 @@ public class HomeFragment extends Fragment {
             }
         });
         homeViewModel.getSystemAppsList(getContext());
-        adapter.notifyDataSetChanged();
-        binding.homeRecyclerView.setAdapter(adapter);
         return root;
     }
 

@@ -1,9 +1,170 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.Settings.SettingsFragment">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            app:cardCornerRadius="12dp"
+            app:cardElevation="8dp"
+            android:layoutDirection="rtl"
+            app:layout_constraintTop_toTopOf="parent">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Application Theme"
+                    android:layout_margin="12dp"
+                    android:textStyle="bold"
+                    android:textSize="20sp"
+                    android:textColor="@color/purple_700"/>
+                <RadioGroup
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/theme_settings"
+                    android:layout_margin="8dp"
+                    android:checkedButton="@id/auto_theme">
+                    <RadioButton
+                        android:id="@+id/auto_theme"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Auto"
+                        android:textStyle="bold"
+                        android:textSize="16sp"/>
+                    <RadioButton
+                        android:id="@+id/light_theme"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Light"
+                        android:textStyle="bold"
+                        android:textSize="16sp"/>
+                    <RadioButton
+                        android:id="@+id/dark_theme"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Dark"
+                        android:textStyle="bold"
+                        android:textSize="16sp"/>
+                </RadioGroup>
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            app:cardCornerRadius="12dp"
+            app:cardElevation="8dp"
+            android:layoutDirection="rtl"
+            app:layout_constraintTop_toTopOf="parent">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="List Mode"
+                    android:layout_margin="12dp"
+                    android:textStyle="bold"
+                    android:textSize="20sp"
+                    android:textColor="@color/purple_700"/>
+                <RadioGroup
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/mode_settings"
+                    android:layout_margin="8dp"
+                    android:checkedButton="@id/user_mode">
+                    <RadioButton
+                        android:id="@+id/user_mode"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="User (only load user installed apps)"
+                        android:textStyle="bold"
+                        android:textSize="16sp"/>
+                    <RadioButton
+                        android:id="@+id/launcher_mode"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Launcher (load apps that are in launcher)"
+                        android:textStyle="bold"
+                        android:textSize="16sp"/>
+                    <RadioButton
+                        android:id="@+id/system_mode"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="System (load system apps too)"
+                        android:textStyle="bold"
+                        android:textSize="16sp"/>
+                </RadioGroup>
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            app:cardCornerRadius="12dp"
+            app:cardElevation="8dp"
+            android:layoutDirection="rtl"
+            app:layout_constraintTop_toTopOf="parent">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Hide Critical Apps"
+                    android:layout_margin="12dp"
+                    android:textStyle="bold"
+                    android:textSize="20sp"
+                    android:textColor="@color/purple_700"/>
+                <CheckBox
+                    android:id="@+id/hide_kill_my_apps"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="8dp"
+                    android:text="Hide 'Kill My Apps' app"
+                    android:textStyle="bold"
+                    android:checked="true"
+                    android:textSize="16sp"/>
+                <CheckBox
+                    android:id="@+id/hide_default_launcher"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="8dp"
+                    android:text="Hide default launcher app"
+                    android:textStyle="bold"
+                    android:checked="true"
+                    android:textSize="16sp"/>
+                <CheckBox
+                    android:id="@+id/hide_system_ui"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="8dp"
+                    android:text="Hide 'System UI' app"
+                    android:checked="true"
+                    android:enabled="false"
+                    android:textStyle="bold"
+                    android:textSize="16sp"/>
+
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+    </LinearLayout>
+
+</ScrollView>
