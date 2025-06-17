@@ -38,6 +38,10 @@ public class AppInfo {
         return icon;
     }
 
+    public int compareTo(AppInfo b) {
+        return name.toLowerCase().compareTo(b.getName().toLowerCase());
+    }
+
     public static class utils{
         public static List<AppInfo> applicationInfoList2AppInfoList(Context context, List<ApplicationInfo> applicationsInfo){
             List<AppInfo> appsList = new ArrayList<>();

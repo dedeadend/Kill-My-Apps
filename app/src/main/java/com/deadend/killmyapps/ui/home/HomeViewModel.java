@@ -87,7 +87,9 @@ public class HomeViewModel extends ViewModel {
             if(filterList(applications, i))
                 i--;
         }
-        appsList.setValue(AppInfo.utils.applicationInfoList2AppInfoList(context, applications));
+        List<AppInfo> temp = AppInfo.utils.applicationInfoList2AppInfoList(context, applications);
+        temp.sort(AppInfo::compareTo);
+        appsList.setValue(temp);
     }
 
     private void getUserAppsList(Context context) {
@@ -102,7 +104,9 @@ public class HomeViewModel extends ViewModel {
             if(filterList(applications, i))
                 i--;
         }
-        appsList.setValue(AppInfo.utils.applicationInfoList2AppInfoList(context, applications));
+        List<AppInfo> temp = AppInfo.utils.applicationInfoList2AppInfoList(context, applications);
+        temp.sort(AppInfo::compareTo);
+        appsList.setValue(temp);
     }
 
     private void getLauncherAppsList(Context context) {
@@ -133,7 +137,9 @@ public class HomeViewModel extends ViewModel {
             if(filterList(applications, i))
                 i--;
         }
-        appsList.setValue(AppInfo.utils.applicationInfoList2AppInfoList(context, applications));
+        List<AppInfo> temp = AppInfo.utils.applicationInfoList2AppInfoList(context, applications);
+        temp.sort(AppInfo::compareTo);
+        appsList.setValue(temp);
     }
 
     public MutableLiveData<List<AppInfo>> getAppsList() {
