@@ -15,6 +15,7 @@ import android.view.animation.LayoutAnimationController;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
@@ -37,22 +38,39 @@ import java.util.Set;
 public class HomeFragment extends Fragment {
 
     private FragmentHomeBinding binding;
+    HomeViewModel homeViewModel;
     private HomeRecyclerViewAdapter adapter;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        HomeViewModel homeViewModel =
-                new ViewModelProvider(this).get(HomeViewModel.class);
-
+        homeViewModel = new ViewModelProvider(this).get(HomeViewModel.class);
         binding = FragmentHomeBinding.inflate(inflater, container, false);
-        View root = binding.getRoot();
+        return binding.getRoot();
+    }
 
-        adapter = new HomeRecyclerViewAdapter(getContext(), homeViewModel.getAppsList().getValue());
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
         binding.homeRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         LayoutAnimationController animation = AnimationUtils.loadLayoutAnimation(getContext(), R.anim.layout_scale_in);
         binding.homeRecyclerView.setLayoutAnimation(animation);
-        binding.homeRecyclerView.setAdapter(adapter);
+        setObservers();
+        setListeners();
+    }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        homeViewModel.refreshList();
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        binding = null;
+    }
+
+    private void setObservers(){
         homeViewModel.getAppsList().observe(getViewLifecycleOwner(), new Observer<List<AppInfo>>() {
             @Override
             public void onChanged(List<AppInfo> appInfos) {
@@ -60,28 +78,16 @@ public class HomeFragment extends Fragment {
                 binding.homeRecyclerView.setAdapter(adapter);
             }
         });
+    }
 
-
+    private void setListeners(){
         binding.refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
+                homeViewModel.refreshList();
                 binding.refreshLayout.setRefreshing(false);
             }
         });
-        homeViewModel.getSystemAppsList(getContext());
-        return root;
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-
-    }
-
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        binding = null;
     }
 
 }

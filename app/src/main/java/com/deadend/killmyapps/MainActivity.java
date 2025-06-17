@@ -7,6 +7,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.NavigationUI;
@@ -23,7 +24,7 @@ public class MainActivity extends AppCompatActivity {
 
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-
+        App.setAppThemeMode();
         setSupportActionBar(binding.toolbar);
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_activity_main);
         NavigationUI.setupWithNavController(binding.navView, navController);
@@ -41,4 +42,5 @@ public class MainActivity extends AppCompatActivity {
             Toast.makeText(this, "support", Toast.LENGTH_SHORT).show();
         return super.onOptionsItemSelected(item);
     }
+
 }

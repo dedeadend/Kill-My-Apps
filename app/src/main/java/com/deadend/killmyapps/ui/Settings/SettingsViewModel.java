@@ -32,6 +32,7 @@ public class SettingsViewModel extends ViewModel {
     public void setThemeMode(int mode){
         themeMode.setValue(mode);
         App.settings.edit().putInt(App.THEME_MODE, mode).apply();
+        App.setAppThemeMode();
     }
     public void setListMode(int mode){
         listMode.setValue(mode);
