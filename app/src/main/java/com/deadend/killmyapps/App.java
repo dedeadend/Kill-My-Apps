@@ -14,6 +14,9 @@ public class App extends Application {
     public static final String HIDE_KILL_MY_APPS = "hideKillMyApps";
     public static final String HIDE_DEFAULT_LAUNCHER = "hideDefaultLauncher";
     public static final String HIDE_SYSTEM_UI = "hideSystemUI";
+    public static final String SHOW_PKGNAME = "showPkgName";
+    public static final String CLICK_TO_APP_INFO = "clickToAppInfo";
+    public static final String LONG_CLICK_TO_COPY = "longClickToCopy";
 
     public static Database database;
     public static SharedPreferences settings;
@@ -27,13 +30,13 @@ public class App extends Application {
         context = getApplicationContext();
     }
 
-    public static void setAppThemeMode(){
+    public static void setAppThemeMode() {
         int themeMode = App.settings.getInt(App.THEME_MODE, 0);
-        if(themeMode == 0)
+        if (themeMode == 0)
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
-        else if(themeMode == 1)
+        else if (themeMode == 1)
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-        else if(themeMode == 2)
+        else if (themeMode == 2)
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
     }
 }

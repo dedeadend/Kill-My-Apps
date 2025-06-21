@@ -5,8 +5,6 @@ import android.content.pm.ApplicationInfo;
 import android.content.pm.ResolveInfo;
 import android.graphics.drawable.Drawable;
 
-import com.deadend.killmyapps.App;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,13 +12,13 @@ public class AppInfo {
     private String name, pkgName;
     private Drawable icon;
 
-    AppInfo(Context context, ApplicationInfo applicationInfo){
+    AppInfo(Context context, ApplicationInfo applicationInfo) {
         name = applicationInfo.loadLabel(context.getPackageManager()).toString();
         pkgName = applicationInfo.packageName;
         icon = applicationInfo.loadIcon(context.getPackageManager());
     }
 
-    AppInfo(Context context, ResolveInfo resolveInfo){
+    AppInfo(Context context, ResolveInfo resolveInfo) {
         name = resolveInfo.loadLabel(context.getPackageManager()).toString();
         pkgName = resolveInfo.activityInfo.packageName;
         icon = resolveInfo.loadIcon(context.getPackageManager());
@@ -42,17 +40,18 @@ public class AppInfo {
         return name.toLowerCase().compareTo(b.getName().toLowerCase());
     }
 
-    public static class utils{
-        public static List<AppInfo> applicationInfoList2AppInfoList(Context context, List<ApplicationInfo> applicationsInfo){
+    public static class utils {
+        public static List<AppInfo> applicationInfoList2AppInfoList(Context context, List<ApplicationInfo> applicationsInfo) {
             List<AppInfo> appsList = new ArrayList<>();
-            for(ApplicationInfo applicationInfo : applicationsInfo){
+            for (ApplicationInfo applicationInfo : applicationsInfo) {
                 appsList.add(new AppInfo(context, applicationInfo));
             }
             return appsList;
         }
-        public static List<AppInfo> resolveInfoList2AppInfoList(Context context, List<ResolveInfo> resolvesInfo){
+
+        public static List<AppInfo> resolveInfoList2AppInfoList(Context context, List<ResolveInfo> resolvesInfo) {
             List<AppInfo> appsList = new ArrayList<>();
-            for(ResolveInfo resolveInfo : resolvesInfo){
+            for (ResolveInfo resolveInfo : resolvesInfo) {
                 appsList.add(new AppInfo(context, resolveInfo));
             }
             return appsList;

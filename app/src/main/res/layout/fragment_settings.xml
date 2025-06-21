@@ -15,7 +15,8 @@
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="8dp"
+            android:layout_marginVertical="8dp"
+            android:layout_marginHorizontal="16dp"
             app:cardCornerRadius="12dp"
             app:cardElevation="8dp"
             android:layoutDirection="rtl"
@@ -65,7 +66,8 @@
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="8dp"
+            android:layout_marginVertical="8dp"
+            android:layout_marginHorizontal="16dp"
             app:cardCornerRadius="12dp"
             app:cardElevation="8dp"
             android:layoutDirection="rtl"
@@ -91,21 +93,21 @@
                         android:id="@+id/user_mode"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="User (only load user installed apps)"
+                        android:text="User (show user installed apps)"
                         android:textStyle="bold"
                         android:textSize="16sp"/>
                     <RadioButton
                         android:id="@+id/launcher_mode"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Launcher (load apps that are in launcher)"
+                        android:text="Launcher (show apps that are in launcher)"
                         android:textStyle="bold"
                         android:textSize="16sp"/>
                     <RadioButton
                         android:id="@+id/system_mode"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="System (load system apps too)"
+                        android:text="System (show system apps too)"
                         android:textStyle="bold"
                         android:textSize="16sp"/>
                 </RadioGroup>
@@ -115,7 +117,8 @@
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="8dp"
+            android:layout_marginVertical="8dp"
+            android:layout_marginHorizontal="16dp"
             app:cardCornerRadius="12dp"
             app:cardElevation="8dp"
             android:layoutDirection="rtl"
@@ -155,6 +158,55 @@
                     android:layout_marginHorizontal="8dp"
                     android:text="Hide 'System UI' app"
                     android:enabled="false"
+                    android:textStyle="bold"
+                    android:textSize="16sp"/>
+
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="8dp"
+            android:layout_marginHorizontal="16dp"
+            app:cardCornerRadius="12dp"
+            app:cardElevation="8dp"
+            android:layoutDirection="rtl"
+            app:layout_constraintTop_toTopOf="parent">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Other"
+                    android:layout_margin="12dp"
+                    android:textStyle="bold"
+                    android:textSize="20sp"
+                    android:textColor="@color/purple_700"/>
+                <CheckBox
+                    android:id="@+id/show_pkgname"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="8dp"
+                    android:text="Show apps package name"
+                    android:textStyle="bold"
+                    android:textSize="16sp"/>
+                <CheckBox
+                    android:id="@+id/click_to_app_info"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="8dp"
+                    android:text="Touch on apps to go app info settings"
+                    android:textStyle="bold"
+                    android:textSize="16sp"/>
+                <CheckBox
+                    android:id="@+id/long_click_to_copy"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="8dp"
+                    android:text="Touch and hold on apps to copy package name"
                     android:textStyle="bold"
                     android:textSize="16sp"/>
 

@@ -12,13 +12,13 @@
         tools:layout="@layout/fragment_home" />
 
     <fragment
-        android:id="@+id/navigation_dashboard"
+        android:id="@+id/navigation_excluded"
         android:name="com.deadend.killmyapps.ui.excluded.ExcludedFragment"
         android:label="@string/title_excluded"
         tools:layout="@layout/fragment_excluded" />
 
     <fragment
-        android:id="@+id/navigation_notifications"
+        android:id="@+id/navigation_settings"
         android:name="com.deadend.killmyapps.ui.Settings.SettingsFragment"
         android:label="@string/title_settings"
         tools:layout="@layout/fragment_settings" />

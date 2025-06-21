@@ -1,13 +1,13 @@
 package com.deadend.killmyapps;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.app.AppCompatDelegate;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.NavigationUI;
@@ -38,8 +38,11 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        if (item.getItemId() == R.id.coffee)
-            Toast.makeText(this, "support", Toast.LENGTH_SHORT).show();
+        if (item.getItemId() == R.id.coffee) {
+            String url = "https://github.com/evil22live/Kill-My-Apps/";
+            Intent urlIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+            startActivity(urlIntent);
+        }
         return super.onOptionsItemSelected(item);
     }
 

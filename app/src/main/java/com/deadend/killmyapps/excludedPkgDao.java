@@ -14,8 +14,10 @@ import java.util.List;
 public interface excludedPkgDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insert(PKGName pkgName);
+
     @Delete
     void delete(PKGName pkgName);
+
     @Query("SELECT * FROM excludedPkg")
     List<PKGName> getAll();
 }

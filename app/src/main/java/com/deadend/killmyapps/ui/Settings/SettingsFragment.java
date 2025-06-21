@@ -5,12 +5,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RadioGroup;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatDelegate;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
@@ -42,7 +39,7 @@ public class SettingsFragment extends Fragment {
         binding = null;
     }
 
-    private void setObservers(){
+    private void setObservers() {
         settingsViewModel.getThemeMode().observe(getViewLifecycleOwner(), new Observer<Integer>() {
             @Override
             public void onChanged(Integer integer) {
@@ -69,6 +66,9 @@ public class SettingsFragment extends Fragment {
         settingsViewModel.getHideKillMyApps().observe(getViewLifecycleOwner(), binding.hideKillMyApps::setChecked);
         settingsViewModel.getHideDefaultLauncher().observe(getViewLifecycleOwner(), binding.hideDefaultLauncher::setChecked);
         settingsViewModel.getHideSystemUI().observe(getViewLifecycleOwner(), binding.hideSystemUi::setChecked);
+        settingsViewModel.getShowAppsPkgName().observe(getViewLifecycleOwner(), binding.showPkgname::setChecked);
+        settingsViewModel.getClickToAppInfo().observe(getViewLifecycleOwner(), binding.clickToAppInfo::setChecked);
+        settingsViewModel.getLongClickToCopy().observe(getViewLifecycleOwner(), binding.longClickToCopy::setChecked);
     }
 
     private void setListeners() {
@@ -110,6 +110,24 @@ public class SettingsFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 settingsViewModel.setHideSystemUI(binding.hideSystemUi.isChecked());
+            }
+        });
+        binding.showPkgname.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                settingsViewModel.setShowAppsPkgName(binding.showPkgname.isChecked());
+            }
+        });
+        binding.clickToAppInfo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                settingsViewModel.setClickToAppInfo(binding.clickToAppInfo.isChecked());
+            }
+        });
+        binding.longClickToCopy.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                settingsViewModel.setLongClickToCopy(binding.longClickToCopy.isChecked());
             }
         });
     }

@@ -1,22 +1,22 @@
 package com.deadend.killmyapps.ui.home;
 
+import android.app.Dialog;
 import android.content.Context;
-import android.content.Intent;
-import android.content.pm.ApplicationInfo;
-import android.content.pm.PackageManager;
-import android.content.pm.ResolveInfo;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.os.Handler;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 import android.view.animation.AnimationUtils;
 import android.view.animation.LayoutAnimationController;
+import android.widget.Button;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
@@ -24,17 +24,11 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.deadend.killmyapps.R;
+import com.deadend.killmyapps.SuUtils;
 import com.deadend.killmyapps.databinding.FragmentHomeBinding;
 import com.deadend.killmyapps.model.AppInfo;
 
-import java.io.BufferedReader;
-import java.io.DataOutputStream;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 public class HomeFragment extends Fragment implements HomeRecyclerViewAdapter.onPauseIconClickListener {
 
@@ -57,28 +51,17 @@ public class HomeFragment extends Fragment implements HomeRecyclerViewAdapter.on
         binding.homeRecyclerView.setLayoutAnimation(animation);
         setObservers();
         setListeners();
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        binding.refreshLayout.setRefreshing(true);
         homeViewModel.refreshList();
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                binding.refreshLayout.setRefreshing(false);
-            }
-        }, 1000);
     }
 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
+        homeViewModel.getAppsList().removeObservers(getViewLifecycleOwner());
         binding = null;
     }
 
-    private void setObservers(){
+    private void setObservers() {
         homeViewModel.getAppsList().observe(getViewLifecycleOwner(), new Observer<List<AppInfo>>() {
             @Override
             public void onChanged(List<AppInfo> appInfos) {
@@ -86,16 +69,17 @@ public class HomeFragment extends Fragment implements HomeRecyclerViewAdapter.on
                 if (appInfos.size() == 0) {
                     binding.killAllBtn.setVisibility(View.GONE);
                     binding.search.setVisibility(View.GONE);
-                }
-                else {
+                    binding.allDead.setVisibility(View.VISIBLE);
+                } else {
                     binding.killAllBtn.setVisibility(View.VISIBLE);
                     binding.search.setVisibility(View.VISIBLE);
+                    binding.allDead.setVisibility(View.GONE);
                 }
             }
         });
     }
 
-    private void setListeners(){
+    private void setListeners() {
         binding.refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -106,18 +90,74 @@ public class HomeFragment extends Fragment implements HomeRecyclerViewAdapter.on
         binding.killAllBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getContext(), homeViewModel.clearList() + " Apps Killed successfully!", Toast.LENGTH_SHORT).show();
+                List<AppInfo> appList = homeViewModel.getAppsList().getValue();
+                if (appList != null) {
+                    if (SuUtils.killListOfApps(homeViewModel.getAppsList().getValue()))
+                        Toast.makeText(getContext(), homeViewModel.clearList() + " apps killed successfully!", Toast.LENGTH_SHORT).show();
+                    else {
+                        onSuError();
+                    }
+                }
+            }
+        });
+
+        binding.search.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                if (adapter != null)
+                    adapter.filterList(newText);
+                return true;
             }
         });
     }
 
-    private void setAdapter(){
+
+    private void setAdapter() {
         adapter = new HomeRecyclerViewAdapter(homeViewModel.getAppsList().getValue(), this);
-        binding.homeRecyclerView.setAdapter(adapter);
+        binding.homeRecyclerView.swapAdapter(adapter, true);
     }
 
     @Override
-    public void onPauseIconClick(int position) {
-        Toast.makeText(getContext(), String.valueOf(position), Toast.LENGTH_SHORT).show();
+    public void onPaused(int position) {
+        Toast.makeText(getContext(), "'" + homeViewModel.getAppsList().getValue().get(position).getName() +
+                "' killed successfully!", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onSuError() {
+        InfoDialog infoDialog = new InfoDialog(getContext());
+        infoDialog.show();
+    }
+
+    private class InfoDialog extends Dialog {
+        Context context;
+        Button close;
+
+        public InfoDialog(@NonNull Context context) {
+            super(context);
+            this.context = context;
+        }
+
+        @Override
+        protected void onCreate(Bundle savedInstanceState) {
+            super.onCreate(savedInstanceState);
+            requestWindowFeature(Window.FEATURE_NO_TITLE);
+            setContentView(R.layout.dialog_info);
+            getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+            getWindow().setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT);
+            setCancelable(true);
+            close = findViewById(R.id.close_dialog_btn);
+            close.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    dismiss();
+                }
+            });
+        }
     }
 }
