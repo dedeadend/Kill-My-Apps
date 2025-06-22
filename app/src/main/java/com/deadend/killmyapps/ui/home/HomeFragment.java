@@ -4,6 +4,8 @@ import android.app.Dialog;
 import android.content.Context;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,12 +31,14 @@ import com.deadend.killmyapps.databinding.FragmentHomeBinding;
 import com.deadend.killmyapps.model.AppInfo;
 
 import java.util.List;
+import java.util.concurrent.Executors;
 
 public class HomeFragment extends Fragment implements HomeRecyclerViewAdapter.onPauseIconClickListener {
 
     private FragmentHomeBinding binding;
-    HomeViewModel homeViewModel;
+    private HomeViewModel homeViewModel;
     private HomeRecyclerViewAdapter adapter;
+    private Handler handler = new Handler(Looper.getMainLooper());
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -90,14 +94,30 @@ public class HomeFragment extends Fragment implements HomeRecyclerViewAdapter.on
         binding.killAllBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                List<AppInfo> appList = homeViewModel.getAppsList().getValue();
-                if (appList != null) {
-                    if (SuUtils.killListOfApps(homeViewModel.getAppsList().getValue()))
-                        Toast.makeText(getContext(), homeViewModel.clearList() + " apps killed successfully!", Toast.LENGTH_SHORT).show();
-                    else {
-                        onSuError();
+                Executors.newSingleThreadExecutor().execute(new Runnable() {
+                    @Override
+                    public void run() {
+                        List<AppInfo> appList = homeViewModel.getAppsList().getValue();
+                        if (appList != null) {
+                            if (SuUtils.killListOfApps(homeViewModel.getAppsList().getValue()))
+                                handler.post(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        Toast.makeText(getContext(), homeViewModel.clearList() + " apps killed successfully!", Toast.LENGTH_SHORT).show();
+                                    }
+                                });
+                            else {
+                                handler.post(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        onSuError();
+                                    }
+                                });
+                            }
+                        }
                     }
-                }
+                });
+
             }
         });
 
