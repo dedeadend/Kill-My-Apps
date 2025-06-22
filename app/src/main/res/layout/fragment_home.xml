@@ -19,7 +19,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/search"
-        app:queryHint="search in running apps"
+        app:queryHint="Search by app name"
         app:iconifiedByDefault="false"
         app:layout_constraintTop_toTopOf="parent"/>
 
