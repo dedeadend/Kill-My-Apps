@@ -36,7 +36,7 @@ public class ExcludedViewModel extends ViewModel {
         Executors.newSingleThreadExecutor().execute(new Runnable() {
             @Override
             public void run() {
-                int listMode = App.settings.getInt(App.LIST_MODE, 0);
+                int listMode = App.settings.getInt(App.LIST_MODE, 1);
                 if (listMode == 0)
                     getUserAppsList(App.context);
                 else if (listMode == 1)
