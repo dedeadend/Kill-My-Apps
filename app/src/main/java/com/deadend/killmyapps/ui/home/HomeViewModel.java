@@ -35,7 +35,7 @@ public class HomeViewModel extends ViewModel {
             @Override
             public void run() {
                 excludedlist = App.database.excludedPkgDao().getAll();
-                int listMode = App.settings.getInt(App.LIST_MODE, 0);
+                int listMode = App.settings.getInt(App.LIST_MODE, 1);
                 if (listMode == 0) {
                     getUserAppsList(App.context);
                 } else if (listMode == 1) {
