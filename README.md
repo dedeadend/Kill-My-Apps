@@ -1,12 +1,18 @@
-# ❄️Kill My Apps
+# ❄️ Kill My Apps
 
-This app is designed to terminate running apps to enhancing battery life, enhancing performance, and eliminating unwanted app activities.
+This app is designed to terminate running apps to enhance battery life, enhance performance, and eliminate unwanted app activities.
 
 To make the kill function work, [root] permission is necessary. Without it, you can keep using my app, but you have to stop apps manually by touching the target app and selecting "force stop."
 
-## 🪶Features
+## 🪶 Features
 
-- Improve battery and performance
+- Improve battery life
+
+- Improve single-task performance (like gaming)
+
+- Free up RAM
+
+- Eliminate unwanted app activities
 
 - One click and done!
 
@@ -14,11 +20,15 @@ To make the kill function work, [root] permission is necessary. Without it, you 
 
 - Selectable apps loading mode (user/launchable/system)
 
-## 😎Support
+## 📌 Known issues
+
+Maybe see the Google Play Protect warning while installing the APK. This will fix automatically after a while from Google's side.
+
+## 😎 Support
 
 For support, you can find me at https://t.me/Evil_N
 
-## ❤️Donation
+## ❤️ Donation
 
-Buy me a coffee :)\
-USDT(TRC20): TWRc6DWLvgfJxGpiBt3PNUo9NAGn8KsvWA
+USDT (TRC20): TWRc6DWLvgfJxGpiBt3PNUo9NAGn8KsvWA
+
