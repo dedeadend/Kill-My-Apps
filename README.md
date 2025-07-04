@@ -4,6 +4,7 @@ This app is designed to terminate running apps to enhance battery life, enhance 
 
 To make the kill function work, [root] permission is necessary. Without it, you can keep using my app, but you have to stop apps manually by touching the target app and selecting "force stop."
 
+
 ## 🪶 Features
 
 - Improve battery life
@@ -20,9 +21,11 @@ To make the kill function work, [root] permission is necessary. Without it, you 
 
 - Selectable apps loading mode (user/launchable/system)
 
+
 ## 📌 Known issues
 
 Maybe see the Google Play Protect warning while installing the APK. This will fix automatically after a while from Google's side.
+
 
 ## 😎 Support
 
