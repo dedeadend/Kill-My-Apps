@@ -14,7 +14,6 @@ import android.view.WindowManager;
 import android.view.animation.AnimationUtils;
 import android.view.animation.LayoutAnimationController;
 import android.widget.Button;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -25,6 +24,7 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import com.deadend.killmyapps.App;
 import com.deadend.killmyapps.R;
 import com.deadend.killmyapps.SuUtils;
 import com.deadend.killmyapps.databinding.FragmentHomeBinding;
@@ -99,15 +99,15 @@ public class HomeFragment extends Fragment implements HomeRecyclerViewAdapter.on
                     public void run() {
                         List<AppInfo> appList = homeViewModel.getAppsList().getValue();
                         if (appList != null) {
-                            if (SuUtils.killListOfApps(homeViewModel.getAppsList().getValue()))
-                                handler.post(new Runnable() {
+                            if (SuUtils.killListOfApps(homeViewModel.getAppsList().getValue())) {
+                                App.handler.post(new Runnable() {
                                     @Override
                                     public void run() {
-                                        Toast.makeText(getContext(), homeViewModel.clearList() + " apps killed successfully!", Toast.LENGTH_SHORT).show();
+                                        homeViewModel.clearList();
                                     }
                                 });
-                            else {
-                                handler.post(new Runnable() {
+                            } else {
+                                App.handler.post(new Runnable() {
                                     @Override
                                     public void run() {
                                         onSuError();
@@ -117,7 +117,6 @@ public class HomeFragment extends Fragment implements HomeRecyclerViewAdapter.on
                         }
                     }
                 });
-
             }
         });
 
@@ -144,8 +143,8 @@ public class HomeFragment extends Fragment implements HomeRecyclerViewAdapter.on
 
     @Override
     public void onPaused(int position) {
-        Toast.makeText(getContext(), "'" + homeViewModel.getAppsList().getValue().get(position).getName() +
-                "' killed successfully!", Toast.LENGTH_SHORT).show();
+        App.toast("'" + homeViewModel.getAppsList().getValue().get(position).getName() +
+                "' killed successfully!");
     }
 
     @Override

@@ -5,8 +5,6 @@ import android.content.Intent;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
-import android.os.Handler;
-import android.os.Looper;
 
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
@@ -23,11 +21,9 @@ public class HomeViewModel extends ViewModel {
 
     private final MutableLiveData<List<AppInfo>> appsList;
     private List<PKGName> excludedlist;
-    private final Handler handler;
 
     public HomeViewModel() {
         appsList = new MutableLiveData<>();
-        handler = new Handler(Looper.getMainLooper());
     }
 
     public void refreshList() {
@@ -108,7 +104,7 @@ public class HomeViewModel extends ViewModel {
         }
         List<AppInfo> temp = AppInfo.utils.applicationInfoList2AppInfoList(context, applications);
         temp.sort(AppInfo::compareTo);
-        handler.post(new Runnable() {
+        App.handler.post(new Runnable() {
             @Override
             public void run() {
                 appsList.setValue(temp);
@@ -130,7 +126,7 @@ public class HomeViewModel extends ViewModel {
         }
         List<AppInfo> temp = AppInfo.utils.applicationInfoList2AppInfoList(context, applications);
         temp.sort(AppInfo::compareTo);
-        handler.post(new Runnable() {
+        App.handler.post(new Runnable() {
             @Override
             public void run() {
                 appsList.setValue(temp);
@@ -168,7 +164,7 @@ public class HomeViewModel extends ViewModel {
         }
         List<AppInfo> temp = AppInfo.utils.applicationInfoList2AppInfoList(context, applications);
         temp.sort(AppInfo::compareTo);
-        handler.post(new Runnable() {
+        App.handler.post(new Runnable() {
             @Override
             public void run() {
                 appsList.setValue(temp);

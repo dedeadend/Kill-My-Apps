@@ -12,6 +12,7 @@ public class SuUtils {
             Process process = Runtime.getRuntime().exec("su");
             DataOutputStream os = new DataOutputStream(process.getOutputStream());
             os.writeBytes("exit\n");
+            os.flush();
             process.waitFor();
             return process.exitValue() == 0;
         } catch (IOException | InterruptedException e) {
@@ -45,6 +46,8 @@ public class SuUtils {
                 }
                 os.writeBytes("am force-stop " + app.getPkgName() + "\n");
             }
+            os.flush();
+            App.toast(appList.size() + " apps killed successfully!");
             if (killMyApps)
                 os.writeBytes("am force-stop com.deadend.killmyapps\n");
             os.writeBytes("exit\n");

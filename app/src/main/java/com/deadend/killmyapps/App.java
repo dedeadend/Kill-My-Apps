@@ -3,6 +3,9 @@ package com.deadend.killmyapps;
 import android.app.Application;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.os.Handler;
+import android.os.Looper;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.room.Room;
@@ -21,6 +24,7 @@ public class App extends Application {
     public static Database database;
     public static SharedPreferences settings;
     public static Context context;
+    public static Handler handler;
 
     @Override
     public void onCreate() {
@@ -28,6 +32,7 @@ public class App extends Application {
         database = Room.databaseBuilder(this, Database.class, "database").build();
         settings = getSharedPreferences("settings", MODE_PRIVATE);
         context = getApplicationContext();
+        handler = new Handler(Looper.getMainLooper());
     }
 
     public static void setAppThemeMode() {
@@ -38,5 +43,14 @@ public class App extends Application {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
         else if (themeMode == 2)
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+    }
+
+    public static void toast(String message) {
+        handler.post(new Runnable() {
+            @Override
+            public void run() {
+                Toast.makeText(context, message, Toast.LENGTH_LONG).show();
+            }
+        });
     }
 }

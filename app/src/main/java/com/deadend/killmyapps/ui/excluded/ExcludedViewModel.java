@@ -5,8 +5,6 @@ import android.content.Intent;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
-import android.os.Handler;
-import android.os.Looper;
 
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
@@ -23,12 +21,10 @@ public class ExcludedViewModel extends ViewModel {
 
     private final MutableLiveData<List<AppInfo>> appsList;
     private final MutableLiveData<List<AppInfo>> excludedList;
-    private final Handler handler;
 
     public ExcludedViewModel() {
         appsList = new MutableLiveData<>();
         excludedList = new MutableLiveData<>();
-        handler = new Handler(Looper.getMainLooper());
         appsList.setValue(new ArrayList<>());
     }
 
@@ -158,7 +154,7 @@ public class ExcludedViewModel extends ViewModel {
             }
         }
         temp.sort(AppInfo::compareTo);
-        handler.post(new Runnable() {
+        App.handler.post(new Runnable() {
             @Override
             public void run() {
                 excludedList.setValue(temp);
