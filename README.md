@@ -24,7 +24,7 @@ To make the kill function work, [root] permission is necessary. Without it, you 
 
 ## 📌 Known issues
 
-Maybe see the Google Play Protect warning while installing the APK. This will fix automatically after a while from Google's side.
+Maybe see the Google Play Protect warning while installing the APK. This warning is shown because my app was recently released. This will fix automatically after a while.
 
 
 ## 😎 Support
