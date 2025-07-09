@@ -7,19 +7,19 @@
 
     <fragment
         android:id="@+id/navigation_home"
-        android:name="com.deadend.killmyapps.ui.home.HomeFragment"
+        android:name="dedeadend.killmyapps.ui.home.HomeFragment"
         android:label="@string/title_home"
         tools:layout="@layout/fragment_home" />
 
     <fragment
         android:id="@+id/navigation_excluded"
-        android:name="com.deadend.killmyapps.ui.excluded.ExcludedFragment"
+        android:name="dedeadend.killmyapps.ui.excluded.ExcludedFragment"
         android:label="@string/title_excluded"
         tools:layout="@layout/fragment_excluded" />
 
     <fragment
         android:id="@+id/navigation_settings"
-        android:name="com.deadend.killmyapps.ui.Settings.SettingsFragment"
+        android:name="dedeadend.killmyapps.ui.Settings.SettingsFragment"
         android:label="@string/title_settings"
         tools:layout="@layout/fragment_settings" />
 </navigation>

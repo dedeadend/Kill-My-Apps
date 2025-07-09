@@ -1,6 +1,6 @@
-package com.deadend.killmyapps;
+package dedeadend.killmyapps;
 
-import com.deadend.killmyapps.model.AppInfo;
+import dedeadend.killmyapps.model.AppInfo;
 
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -34,7 +34,7 @@ public class SuUtils {
         }
     }
 
-    public static boolean killListOfApps(List<AppInfo> appList) {
+    public static int killListOfApps(List<AppInfo> appList) {
         try {
             Process process = Runtime.getRuntime().exec("su");
             DataOutputStream os = new DataOutputStream(process.getOutputStream());
@@ -46,16 +46,23 @@ public class SuUtils {
                 }
                 os.writeBytes("am force-stop " + app.getPkgName() + "\n");
             }
-            os.flush();
-            App.toast(appList.size() + " apps killed successfully!");
-            if (killMyApps)
-                os.writeBytes("am force-stop com.deadend.killmyapps\n");
             os.writeBytes("exit\n");
             os.flush();
             process.waitFor();
-            return process.exitValue() == 0;
-        } catch (IOException | InterruptedException e) {
-            return false;
+            return killMyApps ? 1 : 0;
+        } catch (Exception e) {
+            return -1;
         }
+    }
+
+    public static void killMyApps() {
+        try {
+            Process process = Runtime.getRuntime().exec("su");
+            DataOutputStream os = new DataOutputStream(process.getOutputStream());
+            os.writeBytes("am force-stop com.deadend.killmyapps\n");
+            os.writeBytes("exit\n");
+            os.flush();
+            process.waitFor();
+        } catch (Exception ignored) {}
     }
 }

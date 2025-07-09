@@ -1,8 +1,8 @@
-package com.deadend.killmyapps;
+package dedeadend.killmyapps;
 
 import androidx.room.RoomDatabase;
 
-import com.deadend.killmyapps.model.PKGName;
+import dedeadend.killmyapps.model.PKGName;
 
 @androidx.room.Database(entities = {PKGName.class}, version = 1, exportSchema = false)
 public abstract class Database extends RoomDatabase {

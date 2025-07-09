@@ -1,4 +1,4 @@
-package com.deadend.killmyapps;
+package dedeadend.killmyapps;
 
 import androidx.room.Dao;
 import androidx.room.Delete;
@@ -6,7 +6,7 @@ import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 
-import com.deadend.killmyapps.model.PKGName;
+import dedeadend.killmyapps.model.PKGName;
 
 import java.util.List;
 

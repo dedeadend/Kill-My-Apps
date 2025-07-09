@@ -1,4 +1,4 @@
-package com.deadend.killmyapps.ui.excluded;
+package dedeadend.killmyapps.ui.excluded;
 
 import android.annotation.SuppressLint;
 import android.view.LayoutInflater;
@@ -11,9 +11,9 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.deadend.killmyapps.App;
-import com.deadend.killmyapps.R;
-import com.deadend.killmyapps.model.AppInfo;
+import dedeadend.killmyapps.App;
+import dedeadend.killmyapps.R;
+import dedeadend.killmyapps.model.AppInfo;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,7 +40,7 @@ public class ExcludedRecyclerViewAdapter extends RecyclerView.Adapter<ExcludedRe
     @Override
     public ExcludedRecyclerViewAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(com.deadend.killmyapps.R.layout.recycler_app, parent, false);
+                .inflate(dedeadend.killmyapps.R.layout.recycler_app, parent, false);
         return new ExcludedRecyclerViewAdapter.ViewHolder(view);
     }
 

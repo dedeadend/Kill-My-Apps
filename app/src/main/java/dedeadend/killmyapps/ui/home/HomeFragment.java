@@ -1,11 +1,13 @@
-package com.deadend.killmyapps.ui.home;
+package dedeadend.killmyapps.ui.home;
 
+import android.animation.ObjectAnimator;
+import android.animation.PropertyValuesHolder;
 import android.app.Dialog;
+import android.content.ClipData;
+import android.content.ClipboardManager;
 import android.content.Context;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Looper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,21 +26,20 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
-import com.deadend.killmyapps.App;
-import com.deadend.killmyapps.R;
-import com.deadend.killmyapps.SuUtils;
-import com.deadend.killmyapps.databinding.FragmentHomeBinding;
-import com.deadend.killmyapps.model.AppInfo;
+import dedeadend.killmyapps.App;
+import dedeadend.killmyapps.R;
+import dedeadend.killmyapps.SuUtils;
+import dedeadend.killmyapps.databinding.FragmentHomeBinding;
+import dedeadend.killmyapps.model.AppInfo;
 
 import java.util.List;
 import java.util.concurrent.Executors;
 
-public class HomeFragment extends Fragment implements HomeRecyclerViewAdapter.onPauseIconClickListener {
+public class HomeFragment extends Fragment implements HomeRecyclerViewAdapter.onItemClickListener {
 
     private FragmentHomeBinding binding;
     private HomeViewModel homeViewModel;
     private HomeRecyclerViewAdapter adapter;
-    private Handler handler = new Handler(Looper.getMainLooper());
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -56,6 +57,11 @@ public class HomeFragment extends Fragment implements HomeRecyclerViewAdapter.on
         setObservers();
         setListeners();
         homeViewModel.refreshList();
+        if (App.isFirstRun) {
+            InfoDialog infoDialog = new InfoDialog(getContext());
+            infoDialog.show();
+            App.isFirstRun = false;
+        }
     }
 
     @Override
@@ -94,25 +100,39 @@ public class HomeFragment extends Fragment implements HomeRecyclerViewAdapter.on
         binding.killAllBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                ObjectAnimator.ofPropertyValuesHolder(v,
+                        PropertyValuesHolder.ofFloat(View.SCALE_X, 1, 0.9f, 1),
+                        PropertyValuesHolder.ofFloat(View.SCALE_Y, 1, 0.9f, 1)
+                ).setDuration(400L).start();
                 Executors.newSingleThreadExecutor().execute(new Runnable() {
                     @Override
                     public void run() {
                         List<AppInfo> appList = homeViewModel.getAppsList().getValue();
                         if (appList != null) {
-                            if (SuUtils.killListOfApps(homeViewModel.getAppsList().getValue())) {
-                                App.handler.post(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        homeViewModel.clearList();
-                                    }
-                                });
-                            } else {
+                            int result = SuUtils.killListOfApps(homeViewModel.getAppsList().getValue());
+                            if (result == -1) {
                                 App.handler.post(new Runnable() {
                                     @Override
                                     public void run() {
                                         onSuError();
                                     }
                                 });
+                            } else {
+                                App.handler.post(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        App.toast(getActivity(), "DONE",
+                                                homeViewModel.clearList() + result + " apps killed successfully");
+                                    }
+                                });
+                                if (result == 1) {
+                                    App.handler.postDelayed(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            SuUtils.killMyApps();
+                                        }
+                                    }, 1000L);
+                                }
                             }
                         }
                     }
@@ -143,14 +163,23 @@ public class HomeFragment extends Fragment implements HomeRecyclerViewAdapter.on
 
     @Override
     public void onPaused(int position) {
-        App.toast("'" + homeViewModel.getAppsList().getValue().get(position).getName() +
-                "' killed successfully!");
+        App.toast(getActivity(), "DONE",
+                "\"" + homeViewModel.getAppsList().getValue().get(position).getName() +
+                        "\" killed successfully");
     }
 
     @Override
     public void onSuError() {
         InfoDialog infoDialog = new InfoDialog(getContext());
         infoDialog.show();
+    }
+
+    @Override
+    public void onAppInfo(String pkgName) {
+        ClipboardManager clipboardManager = (ClipboardManager) App.context.getSystemService(Context.CLIPBOARD_SERVICE);
+        ClipData clipData = ClipData.newPlainText("pkgName", pkgName);
+        clipboardManager.setPrimaryClip(clipData);
+        App.toast(getActivity(), "DONE", "package name copied to clipboard");
     }
 
     private class InfoDialog extends Dialog {
@@ -177,6 +206,13 @@ public class HomeFragment extends Fragment implements HomeRecyclerViewAdapter.on
                     dismiss();
                 }
             });
+            ObjectAnimator objectAnimator = ObjectAnimator.ofPropertyValuesHolder(findViewById(R.id.dialog_icon),
+                    PropertyValuesHolder.ofFloat(View.SCALE_X, 1, 0.8f, 1),
+                    PropertyValuesHolder.ofFloat(View.SCALE_Y, 1, 0.8f, 1)
+            );
+            objectAnimator.setDuration(2000L);
+            objectAnimator.setRepeatCount(30);
+            objectAnimator.start();
         }
     }
 }

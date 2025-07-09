@@ -1,4 +1,4 @@
-package com.deadend.killmyapps.ui.excluded;
+package dedeadend.killmyapps.ui.excluded;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -6,7 +6,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AnimationUtils;
 import android.view.animation.LayoutAnimationController;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -17,9 +16,10 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
-import com.deadend.killmyapps.R;
-import com.deadend.killmyapps.databinding.FragmentExcludedBinding;
-import com.deadend.killmyapps.model.AppInfo;
+import dedeadend.killmyapps.App;
+import dedeadend.killmyapps.R;
+import dedeadend.killmyapps.databinding.FragmentExcludedBinding;
+import dedeadend.killmyapps.model.AppInfo;
 
 import java.util.List;
 
@@ -101,12 +101,12 @@ public class ExcludedFragment extends Fragment implements ExcludedRecyclerViewAd
     @Override
     public void onAddIconClick(AppInfo appInfo) {
         excludedViewModel.addExcluded(appInfo);
-        Toast.makeText(getContext(), "'" + appInfo.getName() + "' added to excluded list", Toast.LENGTH_SHORT).show();
+        App.toast(getActivity(), "DONE", "\"" + appInfo.getName() + "\" added to excluded list");
     }
 
     @Override
     public void onRemoveIconClick(AppInfo appInfo) {
         excludedViewModel.removeExcluded(appInfo);
-        Toast.makeText(getContext(), "'" + appInfo.getName() + "' removed from excluded list", Toast.LENGTH_SHORT).show();
+        App.toast(getActivity(), "DONE", "\"" + appInfo.getName() + "\" removed from excluded list");
     }
 }

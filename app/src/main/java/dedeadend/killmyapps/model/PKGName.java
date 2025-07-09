@@ -1,4 +1,4 @@
-package com.deadend.killmyapps.model;
+package dedeadend.killmyapps.model;
 
 import androidx.annotation.NonNull;
 import androidx.room.Entity;

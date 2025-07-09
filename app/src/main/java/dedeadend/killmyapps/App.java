@@ -1,14 +1,18 @@
-package com.deadend.killmyapps;
+package dedeadend.killmyapps;
 
+import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Handler;
 import android.os.Looper;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatDelegate;
+import androidx.core.content.res.ResourcesCompat;
 import androidx.room.Room;
+
+import www.sanju.motiontoast.MotionToast;
+import www.sanju.motiontoast.MotionToastStyle;
 
 public class App extends Application {
 
@@ -25,6 +29,7 @@ public class App extends Application {
     public static SharedPreferences settings;
     public static Context context;
     public static Handler handler;
+    public static boolean isFirstRun;
 
     @Override
     public void onCreate() {
@@ -33,6 +38,9 @@ public class App extends Application {
         settings = getSharedPreferences("settings", MODE_PRIVATE);
         context = getApplicationContext();
         handler = new Handler(Looper.getMainLooper());
+        isFirstRun = settings.getBoolean("isFirstRun", true);
+        if (isFirstRun)
+            settings.edit().putBoolean("isFirstRun", false).apply();
     }
 
     public static void setAppThemeMode() {
@@ -45,12 +53,12 @@ public class App extends Application {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
     }
 
-    public static void toast(String message) {
-        handler.post(new Runnable() {
-            @Override
-            public void run() {
-                Toast.makeText(context, message, Toast.LENGTH_LONG).show();
-            }
-        });
+    public static void toast(Activity activity, String title, String message) {
+        MotionToast.Companion.createColorToast(activity, title, message,
+                MotionToastStyle.SUCCESS,
+                MotionToast.GRAVITY_BOTTOM,
+                MotionToast.LONG_DURATION,
+                ResourcesCompat.getFont(context, www.sanju.motiontoast.R.font.helvetica_regular));
+
     }
 }

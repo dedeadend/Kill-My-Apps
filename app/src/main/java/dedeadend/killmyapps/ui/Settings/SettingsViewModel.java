@@ -1,9 +1,9 @@
-package com.deadend.killmyapps.ui.Settings;
+package dedeadend.killmyapps.ui.Settings;
 
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-import com.deadend.killmyapps.App;
+import dedeadend.killmyapps.App;
 
 public class SettingsViewModel extends ViewModel {
 

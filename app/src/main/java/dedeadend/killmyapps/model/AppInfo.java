@@ -1,4 +1,4 @@
-package com.deadend.killmyapps.model;
+package dedeadend.killmyapps.model;
 
 import android.content.Context;
 import android.content.pm.ApplicationInfo;

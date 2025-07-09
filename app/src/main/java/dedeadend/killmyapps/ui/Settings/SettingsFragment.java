@@ -1,4 +1,4 @@
-package com.deadend.killmyapps.ui.Settings;
+package dedeadend.killmyapps.ui.Settings;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -12,7 +12,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.deadend.killmyapps.databinding.FragmentSettingsBinding;
+import dedeadend.killmyapps.databinding.FragmentSettingsBinding;
 
 public class SettingsFragment extends Fragment {
 

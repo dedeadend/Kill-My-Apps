@@ -1,4 +1,4 @@
-package com.deadend.killmyapps;
+package dedeadend.killmyapps;
 
 import android.content.Intent;
 import android.net.Uri;
@@ -12,7 +12,7 @@ import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.NavigationUI;
 
-import com.deadend.killmyapps.databinding.ActivityMainBinding;
+import dedeadend.killmyapps.databinding.ActivityMainBinding;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -39,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if (item.getItemId() == R.id.coffee) {
-            String url = "https://github.com/evil22live/Kill-My-Apps/";
+            String url = "https://github.com/dedeadend/Kill-My-Apps/";
             Intent urlIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
             startActivity(urlIntent);
         }

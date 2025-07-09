@@ -1,4 +1,4 @@
-package com.deadend.killmyapps.ui.home;
+package dedeadend.killmyapps.ui.home;
 
 import android.content.Context;
 import android.content.Intent;
@@ -9,9 +9,9 @@ import android.content.pm.ResolveInfo;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-import com.deadend.killmyapps.App;
-import com.deadend.killmyapps.model.AppInfo;
-import com.deadend.killmyapps.model.PKGName;
+import dedeadend.killmyapps.App;
+import dedeadend.killmyapps.model.AppInfo;
+import dedeadend.killmyapps.model.PKGName;
 
 import java.util.ArrayList;
 import java.util.List;

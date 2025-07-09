@@ -4,15 +4,15 @@ plugins {
 }
 
 android {
-    namespace = "com.deadend.killmyapps"
+    namespace = "dedeadend.killmyapps"
     compileSdk = 36
 
     defaultConfig {
-        applicationId = "com.deadend.killmyapps"
+        applicationId = "dedeadend.killmyapps"
         minSdk = 24
         targetSdk = 36
-        versionCode = 102
-        versionName = "1.0.2"
+        versionCode = 110
+        versionName = "1.1.0"
     }
 
     buildTypes {
@@ -43,7 +43,8 @@ dependencies {
     implementation(libs.navigation.fragment)
     implementation(libs.navigation.ui)
     implementation(libs.swiperefreshlayout)
-    implementation("androidx.room:room-runtime:2.4.2")
-    annotationProcessor("androidx.room:room-compiler:2.4.2")
-    ksp("androidx.room:room-compiler:2.4.2")
+    implementation(libs.room.runtime)
+    annotationProcessor(libs.room.compiler)
+    ksp(libs.room.compiler)
+    implementation(libs.motiontoast)
 }
