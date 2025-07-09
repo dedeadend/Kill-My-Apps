@@ -29,7 +29,7 @@ Maybe see the Google Play Protect warning while installing the APK. This warning
 
 ## 😎 Support
 
-For support, you can find me at https://t.me/Evil_N
+For support, you can find me at https://t.me/DeDeadend
 
 ## ❤️ Donation
 
