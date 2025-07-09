@@ -40,7 +40,7 @@ public class SuUtils {
             DataOutputStream os = new DataOutputStream(process.getOutputStream());
             boolean killMyApps = false;
             for (AppInfo app : appList) {
-                if (app.getPkgName().equals("com.deadend.killmyapps")) {
+                if (app.getPkgName().equals("dedeadend.killmyapps")) {
                     killMyApps = true;
                     continue;
                 }
@@ -59,7 +59,7 @@ public class SuUtils {
         try {
             Process process = Runtime.getRuntime().exec("su");
             DataOutputStream os = new DataOutputStream(process.getOutputStream());
-            os.writeBytes("am force-stop com.deadend.killmyapps\n");
+            os.writeBytes("am force-stop dedeadend.killmyapps\n");
             os.writeBytes("exit\n");
             os.flush();
             process.waitFor();

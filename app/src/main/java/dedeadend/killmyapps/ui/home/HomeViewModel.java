@@ -65,7 +65,7 @@ public class HomeViewModel extends ViewModel {
         boolean hideDefaultLauncher = App.settings.getBoolean(App.HIDE_DEFAULT_LAUNCHER, true);
         boolean hideSystemUI = App.settings.getBoolean(App.HIDE_SYSTEM_UI, true);
         if (hideKillMyApps) {
-            if (applications.get(i).packageName.equals("com.deadend.killmyapps")) {
+            if (applications.get(i).packageName.equals("dedeadend.killmyapps")) {
                 applications.remove(i);
                 return true;
             }
