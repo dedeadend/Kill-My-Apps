@@ -26,14 +26,14 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import java.util.List;
+import java.util.concurrent.Executors;
+
 import dedeadend.killmyapps.App;
 import dedeadend.killmyapps.R;
 import dedeadend.killmyapps.SuUtils;
 import dedeadend.killmyapps.databinding.FragmentHomeBinding;
 import dedeadend.killmyapps.model.AppInfo;
-
-import java.util.List;
-import java.util.concurrent.Executors;
 
 public class HomeFragment extends Fragment implements HomeRecyclerViewAdapter.onItemClickListener {
 
@@ -121,18 +121,12 @@ public class HomeFragment extends Fragment implements HomeRecyclerViewAdapter.on
                                 App.handler.post(new Runnable() {
                                     @Override
                                     public void run() {
+                                        if (result == 1)
+                                            SuUtils.killMyApps();
                                         App.toast(getActivity(), "DONE",
-                                                homeViewModel.clearList() + result + " apps killed successfully");
+                                                homeViewModel.clearList() + " apps killed successfully");
                                     }
                                 });
-                                if (result == 1) {
-                                    App.handler.postDelayed(new Runnable() {
-                                        @Override
-                                        public void run() {
-                                            SuUtils.killMyApps();
-                                        }
-                                    }, 1000L);
-                                }
                             }
                         }
                     }
