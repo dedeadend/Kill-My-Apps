@@ -35,3 +35,6 @@ For support, you can find me at https://t.me/DeDeadend
 
 USDT (TRC20): TWRc6DWLvgfJxGpiBt3PNUo9NAGn8KsvWA
 
+## License
+
+This project is licensed under the **Apache License 2.0**. See the LICENSE file for details.
