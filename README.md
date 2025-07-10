@@ -35,7 +35,7 @@ For support, you can find me at https://t.me/DeDeadend
 
 USDT (TRC20): TWRc6DWLvgfJxGpiBt3PNUo9NAGn8KsvWA
 
-## 📜 License
+## ⚖️ License
 
 This project is licensed under the **GNU General Public License v3.0**.
 See the LICENSE file for details.
