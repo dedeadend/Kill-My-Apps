@@ -12,6 +12,9 @@
 # Generated build folder
 build/
 
+# Release folder
+release/
+
 # Local configuration file (sdk path, etc)
 local.properties
 
