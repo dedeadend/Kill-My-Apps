@@ -13,7 +13,7 @@
 build/
 
 # Release folder
-release/
+app/release/
 
 # Local configuration file (sdk path, etc)
 local.properties
