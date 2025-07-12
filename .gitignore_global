@@ -12,9 +12,6 @@
 # Generated build folder
 build/
 
-# Release folder
-app/release/
-
 # Local configuration file (sdk path, etc)
 local.properties
 
@@ -57,3 +54,5 @@ google-services.json
 .DS_Store
 captures/
 .externalNativeBuild/
+app/release/
+.idea/
