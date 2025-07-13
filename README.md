@@ -2,7 +2,7 @@
 
 This app is designed to terminate running apps to enhance battery life, enhance performance, and eliminate unwanted app activities.
 
-To make the kill function work, [root] permission is necessary. Without it, you can keep using my app, but you have to stop apps manually by touching the target app and selecting "force stop."
+To make the kill function work, [root] permission is necessary. Without it, you can keep using my app, but you have to stop apps manually by touching the target app and selecting "force stop".
 
 
 ## 🪶 Features
@@ -29,7 +29,7 @@ Maybe see the Google Play Protect warning while installing the APK. This warning
 
 ## 😎 Support
 
-For support, you can find me at https://t.me/DeDeadend
+For support, you can find me at [Telegram](https://t.me/DeDeadend).
 
 ## ❤️ Donation
 
