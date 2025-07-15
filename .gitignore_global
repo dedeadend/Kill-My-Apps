@@ -54,5 +54,3 @@ google-services.json
 .DS_Store
 captures/
 .externalNativeBuild/
-app/release/
-.idea/
